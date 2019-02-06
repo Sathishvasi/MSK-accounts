@@ -201,7 +201,7 @@ export default {
     });
 
     // Stored ID to vuex
-    // this.$store.commit("storeUserID", loginUser[0]);
+    this.$store.commit("storeUserID", loginUser[0]);
 
     // Making userID as global
     Vue.prototype.$loginUserID = loginUser[0];
@@ -219,8 +219,6 @@ export default {
           amount: this.addAmount,
           action: "added"
         };
-
-        console.log(this.localObj);
         
         // Updating money and history in database
         this.$store.commit("updateMoney", this.balance);

@@ -1,5 +1,5 @@
 <template>
-  <v-card height="100vh" flat @click="drawer = false">
+  <v-card height="100vh" flat>
     <div class="headline text-xs-center">
 
       <v-toolbar color="cyan" dark>
@@ -27,12 +27,12 @@
             <v-divider></v-divider>
 
             <v-list-tile class="list-item-top" v-for="item in items" :key="item.title" @click="drawer = !drawer">
-              <router-link class="router-style" :to="item.url">
+              
+              <router-link v-if="item.url == '/profile' || item.url == '/history'" class="router-style" :to="'/home'+item.url">
               <v-list-tile-action>
                 <v-icon>{{ item.icon }}</v-icon>
               </v-list-tile-action>
 
-              
                 <v-list-tile-content>
                 <v-list-tile-title>
                   
@@ -41,13 +41,29 @@
                 </v-list-tile-title>
                 </v-list-tile-content>
               </router-link>
+
+              <router-link v-if="item.url != '/profile' && item.url != '/history'" class="router-style" :to="item.url">
+              <v-list-tile-action>
+                <v-icon>{{ item.icon }}</v-icon>
+              </v-list-tile-action>
+
+                <v-list-tile-content>
+                <v-list-tile-title>
+                  
+                    {{ item.title }}
+                  
+                </v-list-tile-title>
+                </v-list-tile-content>
+              </router-link>
+
+
             </v-list-tile>
           </v-list>
         </v-navigation-drawer>
       </v-layout>
 
       <!-- <router-view/> -->
-      <router-view></router-view>
+        <router-view></router-view>
 
     </div>
 
@@ -63,8 +79,8 @@ export default {
       drawer: null,
       items: [
         { title: "Home", icon: "home",url: "/home" },
-        { title: "Profile", icon: "info",url: "home/profile" },
-        { title: "History", icon: "chat",url: "home/history" },
+        { title: "Profile", icon: "info",url: "/profile" },
+        { title: "History", icon: "chat",url: "/history" },
         { title: "Logout", icon: "present_to_all",url: "/" }
       ]
     };

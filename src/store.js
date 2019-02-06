@@ -13,7 +13,7 @@ const store = new Vuex.Store({
         userList: {},
         historyData: {},
         loggedinUserEmail: "",
-        // loggedInID: ""
+        loggedInID: ""
     },
     getters: {
         getUser: function (state) {
@@ -35,10 +35,12 @@ const store = new Vuex.Store({
             }
             userCollection.push(userObj);
         },
-        // storeUserID: function (state, ID) {
-        //     state.loggedInID = ID[0];
-        // },
+        storeUserID: function (state, ID) {
+            state.loggedInID = ID[0];
+        },
         updateMoney: function (state, val) {
+            console.log(val);
+            
             userCollection.child(state.loggedInID).update({
                 blnce: val
             });
