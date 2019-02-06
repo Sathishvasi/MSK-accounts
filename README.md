@@ -1,29 +1,28 @@
-# msk-accounts
+# MSK Accounts
 
-## Project setup
-```
-npm install
-```
+Main Objective of MSK Accounts is a money management that used to manage funds coming in  (deposits) and those going out (withdrawals)
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+## Technologies used
 
-### Compiles and minifies for production
-```
-npm run build
-```
+``` bash
+# Vue JS
+  * Used vue-cli to create this project
+  * Data binding
+  * Component creation
+  * Routing (vue-router) -> (router/index.js)
+  * Common filters used (filter.js)
 
-### Run your tests
-```
-npm run test
-```
+# Vuetify
+  * Used material design
+  * For better user interface
 
-### Lints and fixes files
+# Firebase
+  * Realtime firebase used for database
+  * data storage and retrieval done by firebase interface
+  * Made one common service to get all data from DB -> (services/database.js)
+  
+# VueX
+  * Used vuex for state management
+  * DB datas are globally stored in vuex -> (/store.js)
+  * Mainly used for Sequence data retrieval
 ```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
