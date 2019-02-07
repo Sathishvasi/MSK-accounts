@@ -40,7 +40,6 @@
 
 <script>
 import { mapState } from "vuex";
-import {firebase} from 'firebase';
 export default {
   computed: {
     ...mapState([

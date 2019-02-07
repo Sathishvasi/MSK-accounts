@@ -2,7 +2,7 @@
   <v-card height="100vh" flat>
     <div class="headline text-xs-center">
 
-      <v-toolbar color="cyan" dark>
+      <v-toolbar color="rgb(44, 46, 111)" dark>
         <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
         <v-toolbar-title class="white--text">MSK Accounts</v-toolbar-title>
         <v-spacer></v-spacer>
@@ -14,7 +14,7 @@
           <v-list class="pa-1">
             <v-list-tile avatar>
               <v-list-tile-avatar>
-                <img src="../assets/sathish.jpg">
+                <img src="../assets/profile-avatar.png">
               </v-list-tile-avatar>
 
               <v-list-tile-content>
@@ -82,7 +82,8 @@ export default {
         { title: "Profile", icon: "info",url: "/profile" },
         { title: "History", icon: "chat",url: "/history" },
         { title: "Logout", icon: "present_to_all",url: "/" }
-      ]
+      ],
+      userName: ""
     };
   },
   created: function() {

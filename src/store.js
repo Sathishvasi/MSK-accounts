@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import firebase from '../src/services/database';
+import Fire from 'firebase';
 
 Vue.use(Vuex);
 Vue.use(firebase);
@@ -39,8 +40,6 @@ const store = new Vuex.Store({
             state.loggedInID = ID[0];
         },
         updateMoney: function (state, val) {
-            console.log(val);
-            
             userCollection.child(state.loggedInID).update({
                 blnce: val
             });
@@ -60,6 +59,38 @@ const store = new Vuex.Store({
         },
         clearAllHistory(state){
             userCollection.child(state.loggedInID).child('history').remove();
+        },
+        updateProfile: function(state,newObj){
+            userCollection.child(state.loggedInID).update({
+                blnce: newObj.blnce,
+                email: newObj.email,
+                name: newObj.name,
+                phno: newObj.phno,
+                pwd: newObj.pwd
+            });
+        },
+        uploadImage: function(state,imageObj){
+            let imageUrl,key;
+
+            userCollection.child(state.loggedInID).push(imageObj)
+                .then((data) => {
+                    key = data.key
+                    return key
+                })
+                .then(key => {
+                    const filename = imageObj.name
+                    const ext = filename.slice(filename.lastIndexOf('.'))
+                    return Fire.storage().ref('users/' + state.loggedInID +'/'+key + ext).put(imageObj)
+                })
+                .then(fileData => {
+                    imageUrl = fileData.metadata.downloadURLs[0]
+                    return userCollection.child(state.loggedInID).child(key).update({
+                        imageUrl: imageUrl
+                    })
+                })
+                .catch((error) => {
+                    console.log(error);
+                })
         }
     },
     actions: {

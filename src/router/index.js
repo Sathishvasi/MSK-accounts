@@ -31,7 +31,7 @@ export default new Router({
                     component: Profile
                 },  
                 {
-                    path: '/',
+                    path: '',
                     components: {
                         default: Home,
                         innerRoute: Home

@@ -148,20 +148,20 @@
                   class="flex-box"
                   flat
                   slot="activator"
-                  color="blue"
+                  color="rgb(44, 46, 111)"
                   @click="takeMoney()"
                 >Take Money</v-btn>
                 <v-btn
                   class="flex-box"
                   flat
                   slot="activator"
-                  color="blue"
+                  color="rgb(44, 46, 111)"
                   @click="addMoney()"
                 >Add Money</v-btn>
               </v-card-actions>
             </v-card>
 
-            <v-btn color="info mt-4 mb-3" @click="confirmation = true">Clear Amount</v-btn>
+            <v-btn color="mt-4 mb-3 login signin-btn" @click="confirmation = true">Clear Amount</v-btn>
           </v-flex>
         </v-layout>
       </div>
