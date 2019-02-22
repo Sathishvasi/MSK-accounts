@@ -58,14 +58,23 @@ export default {
   },
   methods: {
     checkLogin() {
+  
       let obsData = this.$store.state.userList;
       let data = JSON.parse(JSON.stringify(obsData));
+
       let finalData = Object.entries(data);
 
+      // let data = JSON.parse(localStorage.getItem("userList"));
+  
+
+
       let check = finalData.filter((val)=>{
+        
         return this.email == val[1].email && this.pwd == val[1].pwd;      
       })
-            
+
+        console.log(check);
+    
       if(check.length == 0){
         this.snackbar = true;
       }else{
@@ -81,6 +90,7 @@ export default {
   },
   created: function() {
     // console.log("hai"+this.demo);
+    // this.$store.commit('getFirebaseDatabase');
   }
 };
 </script>

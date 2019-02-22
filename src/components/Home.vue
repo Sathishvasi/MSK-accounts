@@ -299,7 +299,7 @@ export default {
   display: flex;
   width: 100%;
   background: #d8e2f1;
-  min-height: 91vh;
+  /* min-height: 91vh; */
   /* background: #ddf0ff; */
 }
 
@@ -310,4 +310,9 @@ export default {
 .desc {
   line-height: 1.8rem;
 }
+
+.application--wrap{
+      min-height: unset !important;
+}
+
 </style>

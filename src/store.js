@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import firebase from '../src/services/database';
 import Fire from 'firebase';
+import createPersistedState from 'vuex-persistedstate'
 
 Vue.use(Vuex);
 Vue.use(firebase);
@@ -16,6 +17,7 @@ const store = new Vuex.Store({
         loggedinUserEmail: "",
         loggedInID: ""
     },
+    plugins: [createPersistedState()],
     getters: {
         getUser: function (state) {
             return state.userList;
@@ -49,7 +51,8 @@ const store = new Vuex.Store({
         },
         getFirebaseDatabase: function (state) {
             userCollection.on("value", function (snap) {
-                state.userList = snap.val()
+                state.userList = snap.val();
+                localStorage.setItem("userList",JSON.stringify(snap.val()))
             })
         },
         getHistoryData: function (state) {
@@ -69,10 +72,14 @@ const store = new Vuex.Store({
                 pwd: newObj.pwd
             });
         },
-        uploadImage: function(state,imageObj){
-            let imageUrl,key;
+        
+    },
+    actions: {
+        uploadImage: function ({commit,getters}, imageObj) {
+            let imageUrl, key;
 
-            userCollection.child(state.loggedInID).push(imageObj)
+
+            userCollection.child(this.state.loggedInID).push(imageObj)
                 .then((data) => {
                     key = data.key
                     return key
@@ -80,21 +87,26 @@ const store = new Vuex.Store({
                 .then(key => {
                     const filename = imageObj.name
                     const ext = filename.slice(filename.lastIndexOf('.'))
-                    return Fire.storage().ref('users/' + state.loggedInID +'/'+key + ext).put(imageObj)
+                    
+                    var task = Fire.storage().ref(this.state.loggedInID + '/' + key + ext).put(imageObj);
+                    return task;
                 })
                 .then(fileData => {
-                    imageUrl = fileData.metadata.downloadURLs[0]
-                    return userCollection.child(state.loggedInID).child(key).update({
-                        imageUrl: imageUrl
+
+                    fileData.task.snapshot.ref.getDownloadURL().then((url)=>{
+
+                        // Storing image url in real time db
+                        return firebase.ref('users').child(this.state.loggedInID).update({
+                            imageUrl: url
+                        })
+
                     })
+                    
                 })
                 .catch((error) => {
                     console.log(error);
                 })
         }
-    },
-    actions: {
-
     }
 })
 

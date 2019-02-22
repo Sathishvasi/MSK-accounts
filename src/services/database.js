@@ -6,7 +6,8 @@ var config = {
     databaseURL: "https://msk-accounts.firebaseio.com",
     projectId: "msk-accounts",
     storageBucket: "msk-accounts.appspot.com",
-    messagingSenderId: "613092135847"
+    messagingSenderId: "613092135847",
+    storageBucket: 'gs://msk-accounts.appspot.com/'
 };
 
 let app = firebase.initializeApp(config);

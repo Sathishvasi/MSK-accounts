@@ -48,11 +48,11 @@
     </v-card>
   </div>
 
-  <div class="col-md-5 pl-md-0 pr-md-5">
+  <div class="col-md-5 pl-md-0 pr-md-5 mb-4">
     <v-card class="pb-3 pt-3">
       <div class="profile-img">
         <!-- <img class="d-none base64url" src=""/> -->
-        <img class="loadImg" src="../assets/profile-avatar.png"/>
+        <img class="loadImg" :src="imageUrl"/>
       </div>
       <v-btn raised type="submit" class="mb-1 mt-3 login signin-btn mt-0 br-btn" @click="pickImage">Upload Image</v-btn>
       <input type="file" class="d-none" ref="filePicker" accept="image/*" @change="onFilePicked">
@@ -84,18 +84,19 @@ export default {
     let data = JSON.parse(JSON.stringify(obsData));
     let finalData = Object.entries(data);
 
+    console.log(finalData);
+    
     let loginUserName = finalData.filter(val => {
-      return val[0] == this.$loginUserID[0];
+      return val[0] == this.$store.state.loggedInID;
     });
-
-
-console.log(loginUserName[0][1]);
 
     this.name = loginUserName[0][1].name;
     this.email = loginUserName[0][1].email;
     this.phno = loginUserName[0][1].phno;
     this.pwd = loginUserName[0][1].pwd;
     this.blnce = loginUserName[0][1].blnce;
+    this.imageUrl = loginUserName[0][1].imageUrl != null ? loginUserName[0][1].imageUrl : '../assets/profile-avatar.png';
+
   },
   methods: {
     submitDetails(){
@@ -125,7 +126,7 @@ console.log(loginUserName[0][1]);
 
       fileReader.readAsDataURL(files[0])
       
-      this.$store.commit('uploadImage',this.image)
+      this.$store.dispatch('uploadImage',this.image)
     }
   }
 };
@@ -171,6 +172,8 @@ console.log(loginUserName[0][1]);
 
 .apply-flex{
   display: flex;
+  background: #d8e2f1; 
+  padding-bottom: 54px;
 }
 
 .profile-img{
